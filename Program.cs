@@ -8,7 +8,7 @@ namespace CSharpAdoNET
     {
         static void Main(string[] args)
         {
-            SalvarCliente("Luana Goncalves Silva", "LuanaGoncalvesSilva@jourrapide.com ");
+            SalvarCliente("Thaís Sousa Souza", "ThaisSousaSouza@rhyta.com", 2);
             ListarClientes();
             ReadLine();
         }
@@ -50,6 +50,21 @@ namespace CSharpAdoNET
                 cmd.CommandText = "INSERT INTO CLIENTES (NOME, EMAIL) VALUES (@nome, @email)";
                 cmd.Parameters.AddWithValue("@nome", nome);
                 cmd.Parameters.AddWithValue("@email", email);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        static void SalvarCliente(string nome, string email, int id)
+        {
+            string connString = getStringConnection();
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                SqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE CLIENTES SET NOME = @nome, EMAIL = @email WHERE ID = @id";
+                cmd.Parameters.AddWithValue("@nome" , nome);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@id"   , id);
                 cmd.ExecuteNonQuery();
             }
         }
