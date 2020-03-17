@@ -8,7 +8,8 @@ namespace CSharpAdoNET
     {
         static void Main(string[] args)
         {
-            SalvarCliente("Thaís Sousa Souza", "ThaisSousaSouza@rhyta.com", 2);
+            // SalvarCliente("Thaís Sousa Souza", "ThaisSousaSouza@rhyta.com", 2);
+            DeletarCliente(1);
             ListarClientes();
             ReadLine();
         }
@@ -65,6 +66,19 @@ namespace CSharpAdoNET
                 cmd.Parameters.AddWithValue("@nome" , nome);
                 cmd.Parameters.AddWithValue("@email", email);
                 cmd.Parameters.AddWithValue("@id"   , id);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        static void DeletarCliente(int id)
+        {
+            string connString = getStringConnection();
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                SqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM CLIENTES WHERE ID = @id";
+                cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
             }
         }
