@@ -25,11 +25,21 @@ namespace CSharpAdoNET
                 case 1:
                     Title = "Listagem de Clientes";
                     WriteLine("=================== LISTAGEM DE CLIENTES ===================\n");
+                    ListarClientes();
                     break;
 
                 case 2:
                     Title = "Novo Cliente";
                     WriteLine("=================== NOVO CLIENTE ===================\n");
+
+                    Write("Informe um nome: ");
+                    string nome = ReadLine();
+
+                    Write("Informe um email: ");
+                    string email = ReadLine();
+
+                    SalvarCliente(nome, email);
+
                     break;
 
                 case 3:
@@ -121,6 +131,24 @@ namespace CSharpAdoNET
                 cmd.CommandText = "DELETE FROM CLIENTES WHERE ID = @id";
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
+            }
+        }
+
+        static (int, string, string) SelecionarCliente(int id)
+        {
+            string connString = getStringConnection();
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = "SELECT ID, NOME, EMAIL FROM CLIENTES WHERE ID = @id";
+                cmd.Parameters.AddWithValue("@id", id);
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    dr.Read();
+                    return (Convert.ToInt32(dr["id"].ToString()), dr["nome"].ToString(), dr["email"].ToString());
+                }
             }
         }
 
