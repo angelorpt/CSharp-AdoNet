@@ -45,6 +45,29 @@ namespace CSharpAdoNET
                 case 3:
                     Title = "Editar Cliente";
                     WriteLine("=================== EDITAR CLIENTE ===================\n");
+                    
+                    ListarClientes();
+                    Write("Selecione um cliente pelo ID: ");
+                    int idOpc = Convert.ToInt32(ReadLine());
+
+                    (int _id, string _nome, string _email) = SelecionarCliente(idOpc);
+
+                    Clear();
+
+                    Title = "Editar Cliente " + _nome;
+                    WriteLine($"=================== EDITAR CLIENTE - {_nome}===================\n");
+
+                    Write("Informe um nome: ");
+                    nome = ReadLine();
+
+                    Write("Informe um email: ");
+                    email = ReadLine();
+
+                    nome = nome.Equals("") ? _nome : nome;
+                    email = email.Equals("") ? _email : email;
+
+                    SalvarCliente(nome, email, idOpc);
+
                     break;
 
                 case 4:
@@ -140,8 +163,8 @@ namespace CSharpAdoNET
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "SELECT ID, NOME, EMAIL FROM CLIENTES WHERE ID = @id";
+                SqlCommand cmd  = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM CLIENTES WHERE ID = @id";
                 cmd.Parameters.AddWithValue("@id", id);
 
                 using (SqlDataReader dr = cmd.ExecuteReader())
