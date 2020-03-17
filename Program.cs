@@ -11,10 +11,25 @@ namespace CSharpAdoNET
             string connString = "Server=LAPTOP-B2ADTHUP\\SQLEXPRESS;Database=CSharpAdoNet;User Id=sa;Password=root";
             SqlConnection conn = new SqlConnection(connString);
 
-            WriteLine(conn);
-            ReadKey();
+            conn.Open();
 
-            Console.WriteLine("Hello World!");
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT ID, NOME, EMAIL FROM CLIENTES ORDER BY ID";
+
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                WriteLine("ID: {0}", dr["id"].ToString());
+                WriteLine("Nome: {0}", dr["nome"].ToString());
+                WriteLine("E-mail: {0}", dr["email"].ToString());
+                WriteLine("-------------------------------------------------\n");
+            }
+
+            conn.Close();
+
+            ReadLine();
+
         }
     }
 }
