@@ -8,14 +8,9 @@ namespace CSharpAdoNET
     {
         static void Main(string[] args)
         {
-            //SqlConnection conn = new SqlConnection(connString);
-
-
-            //conn.Close();
+            SalvarCliente("Luana Goncalves Silva", "LuanaGoncalvesSilva@jourrapide.com ");
             ListarClientes();
-
             ReadLine();
-
         }
 
         static void ListarClientes()
@@ -41,9 +36,22 @@ namespace CSharpAdoNET
                         WriteLine("-------------------------------------------------\n");
                     }
                 }
-
             }
+        }
 
+
+        static void SalvarCliente(string nome, string email)
+        {
+            string connString = getStringConnection();
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                SqlCommand cmd  = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO CLIENTES (NOME, EMAIL) VALUES (@nome, @email)";
+                cmd.Parameters.AddWithValue("@nome", nome);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.ExecuteNonQuery();
+            }
         }
 
         static string getStringConnection()
