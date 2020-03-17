@@ -8,9 +8,50 @@ namespace CSharpAdoNET
     {
         static void Main(string[] args)
         {
-            // SalvarCliente("Thaís Sousa Souza", "ThaisSousaSouza@rhyta.com", 2);
-            DeletarCliente(1);
-            ListarClientes();
+
+            WriteLine("=================== CONTROLE DE CLIENTES ===================\n");
+            WriteLine("Selecione uma opção:");
+            WriteLine("1 - Listar");
+            WriteLine("2 - Cadastrar");
+            WriteLine("3 - Editar");
+            WriteLine("4 - Excluir");
+            WriteLine("5 - Visualizar");
+
+            int opc = Convert.ToInt32(ReadLine());
+
+            Clear();
+            switch (opc)
+            {
+                case 1:
+                    Title = "Listagem de Clientes";
+                    WriteLine("=================== LISTAGEM DE CLIENTES ===================\n");
+                    break;
+
+                case 2:
+                    Title = "Novo Cliente";
+                    WriteLine("=================== NOVO CLIENTE ===================\n");
+                    break;
+
+                case 3:
+                    Title = "Editar Cliente";
+                    WriteLine("=================== EDITAR CLIENTE ===================\n");
+                    break;
+
+                case 4:
+                    Title = "Excluir Cliente";
+                    WriteLine("=================== EXCLUIR CLIENTE ===================\n");
+                    break;
+
+                case 5:
+                    Title = "Visualizar Cliente";
+                    WriteLine("=================== VISUALIZAR CLIENTE ===================\n");
+                    break;
+                default:
+                    Title = "Opção Inválida";
+                    WriteLine("=================== SELECIONE UMA OPÇÃO VÁLIDA ===================\n");
+                    break;
+            }
+
             ReadLine();
         }
 
