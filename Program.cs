@@ -99,6 +99,19 @@ namespace CSharpAdoNET
                 case 5:
                     Title = "Visualizar Cliente";
                     WriteLine("=================== VISUALIZAR CLIENTE ===================\n");
+                    ListarClientes();
+                    
+                    Write("Selecione um cliente pelo ID: ");
+                    idOpc = Convert.ToInt32(ReadLine());
+                    (_id, _nome, _email) = SelecionarCliente(idOpc);
+                    Clear();
+
+                    Title = "Detalhes do Cliente - " + _nome;
+                    WriteLine($"=================== DETALHES DO CLIENTE - {_nome} ===================\n");
+                    WriteLine("ID: {0}", _id);
+                    WriteLine("Nome: {0}", _nome);
+                    WriteLine("E-mail: {0}", _email);
+
                     break;
                 default:
                     Title = "Opção Inválida";
