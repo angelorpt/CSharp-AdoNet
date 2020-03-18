@@ -73,6 +73,27 @@ namespace CSharpAdoNET
                 case 4:
                     Title = "Excluir Cliente";
                     WriteLine("=================== EXCLUIR CLIENTE ===================\n");
+
+                    ListarClientes();
+                    Write("Selecione um cliente pelo ID: ");
+                    idOpc = Convert.ToInt32(ReadLine());
+                    (_id, _nome, _email) = SelecionarCliente(idOpc);
+                    Clear();
+
+                    Title = "Excluir Cliente - " + _nome;
+                    WriteLine($"=================== EXCLUIR CLIENTE - {_nome} ===================\n");
+                    WriteLine("\n************** ATENÇÃO **************\n");
+
+                    WriteLine("Deseja Excluir (S - sim | N - não): ");
+                    string confirmar = ReadLine().ToUpper();
+
+                    if (confirmar.Equals("S"))
+                    {
+                        DeletarCliente(idOpc);
+                    }
+
+                    DeletarCliente(idOpc);
+
                     break;
 
                 case 5:
@@ -113,7 +134,6 @@ namespace CSharpAdoNET
                 }
             }
         }
-
 
         static void SalvarCliente(string nome, string email)
         {
